@@ -1,12 +1,14 @@
 #ifndef ARENA_STACK_H
 #define ARENA_STACK_H
 
-#define U64 unsigned long long
-#define U32 unsigned int
-#define U16 unsigned short
-#define U8 unsigned char
-#define I64 long long
-#define I32 int
+#include <stdint.h>
+
+#define U64 uint64_t
+#define U32 uint32_t
+#define U16 uint16_t
+#define U8 uint8_t
+#define I64 int64_t
+#define I32 int32_t
 
 
 typedef struct {
@@ -20,6 +22,10 @@ Arena *ArenaAlloc(U64 cap);
 void ArenaRelease(Arena *arena);
 void ArenaSetAutoAlign(Arena *arena, U64 align);
 
+U64 ArenaPos(Arena *arena);
+
+void *ArenaPushNoZero(Arena *arena, U64 size);
+void *ArenaPushAligner(Arena *arena, U64 size);
 void *ArenaPush(Arena *arena, U64 size);
 
 void ArenaPop(Arena *arena, U64 size);

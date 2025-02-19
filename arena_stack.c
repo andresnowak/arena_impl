@@ -32,7 +32,8 @@ void ArenaRelease(Arena *arena) {
 
 void ArenaSetAutoAlign(Arena *arena, U64 align) {
   // If you need the entire buffer to be aligned (not just individual
-  // allocations), use posix_memalign or _aligned_malloc, (so to not have to do the calculations manually i think?)
+  // allocations), use posix_memalign or _aligned_malloc, (so to not have to do
+  // the calculations manually i think?)
 
   if (align == 0 || (align & (align - 1)) != 0) {
     printf("Error: Alignment must be a power of two\n");
@@ -41,6 +42,8 @@ void ArenaSetAutoAlign(Arena *arena, U64 align) {
 
   arena->align = align;
 }
+
+U64 ArenaPos(Arena *arena) { return arena->pos; }
 
 void *ArenaPush(Arena *arena, U64 size) {
   U64 aligned_pos = (arena->pos + arena->align - 1) & ~(arena->align - 1);
